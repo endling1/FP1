@@ -22,6 +22,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Footer from './Footer';
 
 import Dispatcher from '../dispatcher/Dispatcher';
 import HomeStore from '../stores/HomeStore';
@@ -47,7 +48,7 @@ class Home extends React.Component {
         };
         this.currentCategory = {
             category: '',
-            subCategoryIndex: 0
+            subCategoryIndex: -1
         };
         this._change = this._change.bind(this);
         this._toggleCategoryClick = this._toggleCategoryClick.bind(this);
@@ -93,7 +94,7 @@ class Home extends React.Component {
         const buttonStyle = {
     marginRight: 20,
     height: 40,
-    width: 900,
+    width: 600,
     // marginLeft: 350,
     // marginRight: 50,
     marginTop: 50,
@@ -102,8 +103,8 @@ class Home extends React.Component {
     display: 'inline-block',
     position: 'absolute',
     right: 20,
-    bottom: 20,
-    left: 400
+    bottom: 80,
+    left: 550
 };
 
 
@@ -194,6 +195,7 @@ const divStyle={
                                     })()
                                 }
                             </Paper>
+                            <div>
                             {
                                 (this.state.questions.length > 0) && (function(){
                                         var questionObj = self.state.questions[self.state.questionNumber];
@@ -220,8 +222,13 @@ const divStyle={
                                     })()
 
                             }
-                            
-                            <BottomNavigation style={{paddingLeft: 20, paddingTop: 20, paddingRight: 20, marginBottom: 20, width: 900, height: 48, marginTop: 50}}>
+                            </div>
+                            <div>
+                            {
+                                (self.currentCategory.subCategoryIndex !== -1) && (function(){
+
+                                    return (
+                                        <BottomNavigation style={{paddingLeft: 20, paddingTop: 20, paddingRight: 20, marginBottom: 20, width: 900, height: 48, marginTop: 50}}>
                               <BottomNavigationItem
                                 label=""
                                 icon={<ArrowBack/>}
@@ -259,6 +266,11 @@ const divStyle={
                             }}
                               />
                             </BottomNavigation>
+                                        )
+                                })()
+                            }
+                            </div>
+                            
                         </div>
                         <RaisedButton
                   label="View report"
@@ -270,8 +282,10 @@ const divStyle={
                     HomeActions.viewReport(self.state.model);
                 }}
                 />
-                    </div>  
-                           
+                    </div> 
+                    <div> 
+             <Footer />   
+             </div>  
                 </div>
 
             </MuiThemeProvider>

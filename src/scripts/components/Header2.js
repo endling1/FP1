@@ -11,14 +11,12 @@ const paperStyle = {
 	width: 'auto',
 	height:'56px',
 	backgroundColor: Colors.cyan300,
-	opacity: 0,
 	display: 'block'
 };
 const divStyle={
 	color:'white',
 	marginTop:'8px',
-	marginLeft:'20px',
-	opacity: 1
+	marginLeft:'20px'
 }
 
 class Header2 extends Component{

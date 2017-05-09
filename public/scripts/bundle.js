@@ -99873,14 +99873,12 @@ var paperStyle = {
 	width: 'auto',
 	height: '56px',
 	backgroundColor: Colors.cyan300,
-	opacity: 0,
 	display: 'block'
 };
 var divStyle = {
 	color: 'white',
 	marginTop: '8px',
-	marginLeft: '20px',
-	opacity: 1
+	marginLeft: '20px'
 };
 
 var Header2 = function (_Component) {
@@ -100005,6 +100003,10 @@ var _FloatingActionButton = require('material-ui/FloatingActionButton');
 
 var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 
+var _Footer = require('./Footer');
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 var _Dispatcher = require('../dispatcher/Dispatcher');
 
 var _Dispatcher2 = _interopRequireDefault(_Dispatcher);
@@ -100068,7 +100070,7 @@ var Home = function (_React$Component) {
         _this.questionStyle = {};
         _this.currentCategory = {
             category: '',
-            subCategoryIndex: 0
+            subCategoryIndex: -1
         };
         _this._change = _this._change.bind(_this);
         _this._toggleCategoryClick = _this._toggleCategoryClick.bind(_this);
@@ -100094,8 +100096,6 @@ var Home = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             var self = this;
             var style = {
                 height: 80,
@@ -100121,7 +100121,7 @@ var Home = function (_React$Component) {
             var buttonStyle = {
                 marginRight: 20,
                 height: 40,
-                width: 900,
+                width: 600,
                 // marginLeft: 350,
                 // marginRight: 50,
                 marginTop: 50,
@@ -100130,8 +100130,8 @@ var Home = function (_React$Component) {
                 display: 'inline-block',
                 position: 'absolute',
                 right: 20,
-                bottom: 20,
-                left: 400
+                bottom: 80,
+                left: 550
             };
 
             var paperStyle = {
@@ -100236,70 +100236,82 @@ var Home = function (_React$Component) {
                                     );
                                 }()
                             ),
-                            this.state.questions.length > 0 && function () {
-                                var questionObj = self.state.questions[self.state.questionNumber];
-                                return questionObj.options.map(function (object, index) {
-                                    return _react2.default.createElement(
-                                        'div',
-                                        { key: index, style: { paddingLeft: 20, paddingTop: 20, paddingRight: 20, marginBottom: 20, width: 900, height: 48 } },
-                                        _react2.default.createElement(
-                                            _Paper2.default,
-                                            { style: { height: 48 } },
-                                            _react2.default.createElement(_MenuItem2.default, { primaryText: object.answer, style: object.style,
-                                                onTouchTap: function () {
-
-                                                    var _questionIndex = self.state.questionNumber;
-                                                    var _answerIndex = index;
-
-                                                    return function () {
-
-                                                        self._answerClicked(_questionIndex, _answerIndex);
-                                                    };
-                                                }()
-                                            })
-                                        )
-                                    );
-                                });
-                            }(),
                             _react2.default.createElement(
-                                _BottomNavigation.BottomNavigation,
-                                { style: { paddingLeft: 20, paddingTop: 20, paddingRight: 20, marginBottom: 20, width: 900, height: 48, marginTop: 50 } },
-                                _react2.default.createElement(_BottomNavigation.BottomNavigationItem, {
-                                    label: '',
-                                    icon: _react2.default.createElement(_arrowBack2.default, null),
-                                    onTouchTap: function onTouchTap() {
-                                        //this.select(2)
-                                        var questionNumber = self.state.questionNumber;
-                                        if (questionNumber > 0) {
-                                            self.setState({
-                                                questionNumber: questionNumber - 1
-                                            });
-                                        }
-                                    }
-                                }),
-                                _react2.default.createElement(_BottomNavigation.BottomNavigationItem, {
-                                    label: '',
-                                    icon: _react2.default.createElement(_done2.default, null),
-                                    onTouchTap: function onTouchTap() {
-                                        return _this2.select(1);
-                                    }
-                                }),
-                                _react2.default.createElement(_BottomNavigation.BottomNavigationItem, {
-                                    label: '',
-                                    icon: _react2.default.createElement(_arrowForward2.default, null),
-                                    onTouchTap: function onTouchTap() {
-                                        //this.select(2)
-                                        var questionNumber = self.state.questionNumber;
-                                        if (questionNumber < self.state.questions.length - 1) {
-                                            self.setState({
-                                                questionNumber: questionNumber + 1
-                                            });
-                                            // if(questionNumber === self.state.questions.length - 1){
-                                            //     location.href = '/#/report';
-                                            // }
-                                        }
-                                    }
-                                })
+                                'div',
+                                null,
+                                this.state.questions.length > 0 && function () {
+                                    var questionObj = self.state.questions[self.state.questionNumber];
+                                    return questionObj.options.map(function (object, index) {
+                                        return _react2.default.createElement(
+                                            'div',
+                                            { key: index, style: { paddingLeft: 20, paddingTop: 20, paddingRight: 20, marginBottom: 20, width: 900, height: 48 } },
+                                            _react2.default.createElement(
+                                                _Paper2.default,
+                                                { style: { height: 48 } },
+                                                _react2.default.createElement(_MenuItem2.default, { primaryText: object.answer, style: object.style,
+                                                    onTouchTap: function () {
+
+                                                        var _questionIndex = self.state.questionNumber;
+                                                        var _answerIndex = index;
+
+                                                        return function () {
+
+                                                            self._answerClicked(_questionIndex, _answerIndex);
+                                                        };
+                                                    }()
+                                                })
+                                            )
+                                        );
+                                    });
+                                }()
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                self.currentCategory.subCategoryIndex !== -1 && function () {
+                                    var _this2 = this;
+
+                                    return _react2.default.createElement(
+                                        _BottomNavigation.BottomNavigation,
+                                        { style: { paddingLeft: 20, paddingTop: 20, paddingRight: 20, marginBottom: 20, width: 900, height: 48, marginTop: 50 } },
+                                        _react2.default.createElement(_BottomNavigation.BottomNavigationItem, {
+                                            label: '',
+                                            icon: _react2.default.createElement(_arrowBack2.default, null),
+                                            onTouchTap: function onTouchTap() {
+                                                //this.select(2)
+                                                var questionNumber = self.state.questionNumber;
+                                                if (questionNumber > 0) {
+                                                    self.setState({
+                                                        questionNumber: questionNumber - 1
+                                                    });
+                                                }
+                                            }
+                                        }),
+                                        _react2.default.createElement(_BottomNavigation.BottomNavigationItem, {
+                                            label: '',
+                                            icon: _react2.default.createElement(_done2.default, null),
+                                            onTouchTap: function onTouchTap() {
+                                                return _this2.select(1);
+                                            }
+                                        }),
+                                        _react2.default.createElement(_BottomNavigation.BottomNavigationItem, {
+                                            label: '',
+                                            icon: _react2.default.createElement(_arrowForward2.default, null),
+                                            onTouchTap: function onTouchTap() {
+                                                //this.select(2)
+                                                var questionNumber = self.state.questionNumber;
+                                                if (questionNumber < self.state.questions.length - 1) {
+                                                    self.setState({
+                                                        questionNumber: questionNumber + 1
+                                                    });
+                                                    // if(questionNumber === self.state.questions.length - 1){
+                                                    //     location.href = '/#/report';
+                                                    // }
+                                                }
+                                            }
+                                        })
+                                    );
+                                }()
                             )
                         ),
                         _react2.default.createElement(_RaisedButton2.default, {
@@ -100312,6 +100324,11 @@ var Home = function (_React$Component) {
                                 _HomeActions2.default.viewReport(self.state.model);
                             }
                         })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_Footer2.default, null)
                     )
                 )
             );
@@ -100390,7 +100407,7 @@ var Home = function (_React$Component) {
 
 module.exports = Home;
 
-},{"../actions/HomeActions":830,"../dispatcher/Dispatcher":844,"../stores/HomeStore":845,"../stores/LandingStore":846,"../stores/QuestionsStore":847,"./Header2":836,"material-ui/AppBar":363,"material-ui/BottomNavigation":368,"material-ui/Divider":382,"material-ui/Drawer":384,"material-ui/FlatButton":389,"material-ui/FloatingActionButton":391,"material-ui/FontIcon":393,"material-ui/IconButton":395,"material-ui/MenuItem":402,"material-ui/Paper":404,"material-ui/RaisedButton":412,"material-ui/Toolbar":429,"material-ui/styles/MuiThemeProvider":444,"material-ui/styles/baseThemes/darkBaseTheme":445,"material-ui/styles/baseThemes/lightBaseTheme":446,"material-ui/styles/colors":447,"material-ui/styles/getMuiTheme":448,"material-ui/svg-icons/action/done":453,"material-ui/svg-icons/communication/location-on":454,"material-ui/svg-icons/navigation/arrow-back":457,"material-ui/svg-icons/navigation/arrow-drop-down":458,"material-ui/svg-icons/navigation/arrow-drop-up":459,"material-ui/svg-icons/navigation/arrow-forward":460,"react":707}],838:[function(require,module,exports){
+},{"../actions/HomeActions":830,"../dispatcher/Dispatcher":844,"../stores/HomeStore":845,"../stores/LandingStore":846,"../stores/QuestionsStore":847,"./Footer":834,"./Header2":836,"material-ui/AppBar":363,"material-ui/BottomNavigation":368,"material-ui/Divider":382,"material-ui/Drawer":384,"material-ui/FlatButton":389,"material-ui/FloatingActionButton":391,"material-ui/FontIcon":393,"material-ui/IconButton":395,"material-ui/MenuItem":402,"material-ui/Paper":404,"material-ui/RaisedButton":412,"material-ui/Toolbar":429,"material-ui/styles/MuiThemeProvider":444,"material-ui/styles/baseThemes/darkBaseTheme":445,"material-ui/styles/baseThemes/lightBaseTheme":446,"material-ui/styles/colors":447,"material-ui/styles/getMuiTheme":448,"material-ui/svg-icons/action/done":453,"material-ui/svg-icons/communication/location-on":454,"material-ui/svg-icons/navigation/arrow-back":457,"material-ui/svg-icons/navigation/arrow-drop-down":458,"material-ui/svg-icons/navigation/arrow-drop-up":459,"material-ui/svg-icons/navigation/arrow-forward":460,"react":707}],838:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -101738,8 +101755,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var baseUrl = 'http://ec2-35-154-248-81.ap-south-1.compute.amazonaws.com';
+// var baseUrl = 'http://localhost:3000';
 var Constants = {
-    API: (_API = {}, _defineProperty(_API, _ActionTypes2.default.GET_QUESTION_CATEGORIES, 'http://ec2-35-154-248-81.ap-south-1.compute.amazonaws.com/categories'), _defineProperty(_API, _ActionTypes2.default.GET_QUESTIONS, 'http://ec2-35-154-248-81.ap-south-1.compute.amazonaws.com/questions'), _defineProperty(_API, _ActionTypes2.default.REGISTER_USER, 'http://ec2-35-154-248-81.ap-south-1.compute.amazonaws.com/signup'), _defineProperty(_API, _ActionTypes2.default.LOGIN_USER, 'http://ec2-35-154-248-81.ap-south-1.compute.amazonaws.com/login'), _API)
+    API: (_API = {}, _defineProperty(_API, _ActionTypes2.default.GET_QUESTION_CATEGORIES, baseUrl + '/categories'), _defineProperty(_API, _ActionTypes2.default.GET_QUESTIONS, baseUrl + '/questions'), _defineProperty(_API, _ActionTypes2.default.REGISTER_USER, baseUrl + '/signup'), _defineProperty(_API, _ActionTypes2.default.LOGIN_USER, baseUrl + '/login'), _API)
 };
 
 module.exports = Constants;
