@@ -1,0 +1,20 @@
+# Filesystem relics
+.DS_Store
+
+# Temporary editor files
+*.swp
+*~
+*#*
+
+# Cryptography files
+*.cer
+*.crt
+*.pem
+*.key
+*.pfx
+
+# Temporary folders
+node_modules
+logs
+keys
+data
